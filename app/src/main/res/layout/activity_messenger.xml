@@ -1,51 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Messenger">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/sdfs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <LinearLayout
+            android:id="@+id/sdfdsffsd"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                <com.example.bestoption.design.customfonts.TextViewImmacBytes
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="horizontal">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="June 2018"
+                    android:textColor="#98a9b7" />
 
-        <EditText
-            android:id="@+id/messenger"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            tools:layout_editor_absoluteY="731dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:text="Send"
-            android:onClick="send"/>
-    </LinearLayout>
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="bottom"
+                        android:src="@drawable/im1"
+                        android:layout_marginLeft="10dp"
+                        app:civ_border_color="#EEEEEE"
+                        app:civ_border_width="4dp"
+                        app:civ_shadow="true"
+                        app:civ_shadow_color="#d0d0d0"
+                        app:civ_shadow_radius="2" />
 
-</android.support.constraint.ConstraintLayout>
+                    <LinearLayout
+                        android:layout_width="250dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/gray"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+
+                        <com.example.bestoption.design.customfonts.TextViewImmacBytes
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="05dp"
+                            android:text="slt Hiba"
+                            android:textColor="#616e7f" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <com.example.bestoption.design.customfonts.TextViewImmacBytes
+                    android:id="@+id/myTextView_Roboto_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:text="June 2018"
+                    android:textColor="#98a9b7" />
+
+                <LinearLayout
+                    android:id="@+id/ok"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="250dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/green"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+
+                        <com.example.bestoption.design.customfonts.TextViewImmacBytes
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="05dp"
+                            android:text="slt Intissar"
+                            android:textColor="#fff" />
+
+
+                        <com.example.bestoption.design.customfonts.TextViewImmacBytes
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:text="cv ?"
+                            android:textColor="#fff" />
+                    </LinearLayout>
+
+                    <com.example.bestoption.design.customfonts.TextViewImmacBytes
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
+                        android:text="50 sec ago"
+                        android:textColor="#98a9b7" />
+
+                </LinearLayout>
+
+                <com.example.bestoption.design.customfonts.TextViewImmacBytes
+                    android:id="@+id/dfdsfd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:text="June 2018"
+                    android:textColor="#98a9b7" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <com.mikhaellopez.circularimageview.CircularImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="bottom"
+                        android:src="@drawable/im1"
+                        app:civ_border_color="#EEEEEE"
+                        android:layout_marginLeft="10dp"
+                        app:civ_border_width="4dp"
+                        app:civ_shadow="true"
+                        app:civ_shadow_color="#d0d0d0"
+                        app:civ_shadow_radius="2" />
+
+                    <LinearLayout
+                        android:layout_width="250dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/gray"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+
+                        <com.example.bestoption.design.customfonts.TextViewImmacBytes
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="05dp"
+                            android:text="super et vous ?"
+                            android:textColor="#616e7f" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="5dp"
+                android:background="#ffffff"
+                android:orientation="horizontal">
+
+
+                <com.example.bestoption.design.customfonts.ETextViewImmacBytes
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:background="@android:color/transparent"
+                    android:hint="repondre.."
+                    android:minWidth="200dp"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right">
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

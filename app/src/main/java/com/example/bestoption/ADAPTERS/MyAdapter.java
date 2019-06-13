@@ -17,7 +17,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public MyAdapter(List<Plans> lists) {
         list= lists;
     }
+    private View.OnClickListener mOnItemClickListener;
 
+    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
+        mOnItemClickListener = itemClickListener;
+    }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder( ViewGroup viewGroup, int i) {
@@ -29,6 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder( MyViewHolder myViewHolder, int i) {
 myViewHolder.text.setText(list.get(i).getName());
+myViewHolder.description.setText((list.get(i).getDescriptionCourt()));
 
     }
 
@@ -39,11 +44,12 @@ myViewHolder.text.setText(list.get(i).getName());
 
     public  static  class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView text ;
+        public TextView description;
     public MyViewHolder(View v) {
 
         super(v);
         text = (TextView) v.findViewById(R.id.textView3);
-
+        description = (TextView) v.findViewById(R.id.textView30);
     }
 
 }

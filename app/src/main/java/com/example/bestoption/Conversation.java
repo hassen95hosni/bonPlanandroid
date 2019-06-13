@@ -71,7 +71,7 @@ public class Conversation extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_conversation, container, false);
-        getAll(view);
+        getAlloffline(view);
         return view;
     }
 
@@ -133,7 +133,25 @@ public class Conversation extends Fragment {
         });
         return plans;
     }
+    private List<com.example.bestoption.entity.Conversation> getAlloffline(View view){
+        final RecyclerView recyclerview ;
 
+        recyclerview = (RecyclerView) view.findViewById(R.id.recyclerconversation);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
+       // recyclerview.addItemDecoration(new Conversation.GridSpacing(2, dpTopx(10) ,true));
+        recyclerview.setLayoutManager(layoutManager);
+        List<com.example.bestoption.entity.Conversation> conversations = new ArrayList<com.example.bestoption.entity.Conversation>();
+        com.example.bestoption.entity.Conversation conversation = new com.example.bestoption.entity.Conversation();
+        conversation.setId(1);
+        conversation.setName("intissar");
+        conversations.add(conversation);
+        conversation.setId(2);
+        conversation.setName("hiba");
+        conversations.add(conversation);
+        RecyclerView.Adapter madapter = new ConversationAdapter(conversations);
+        recyclerview.setAdapter(madapter);
+        return conversations;
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
   //  public void onButtonPressed(Uri uri) {

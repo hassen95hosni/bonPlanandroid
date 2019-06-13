@@ -41,9 +41,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Messenger extends AppCompatActivity {
     private  static Retrofit retrofit = null;
     public static final String BASE_URL= "http://192.168.43.227:1330/";
-    EditText messenger;
+  //  EditText messenger;
 
-
+/*
     public void send(View view){
         if (retrofit==null){
             retrofit = new Retrofit.Builder()
@@ -67,8 +67,8 @@ public class Messenger extends AppCompatActivity {
             }
         });
     }
-
-    private void sub (MqttAndroidClient client){
+*/
+ /*   private void sub (MqttAndroidClient client){
         String topic = "message";
         int qos = 1;
         try {
@@ -91,9 +91,9 @@ public class Messenger extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+*/
 
-
-    private void pub(MqttAndroidClient client){
+ /*   private void pub(MqttAndroidClient client){
         String topic = "foo/bar";
         String payload = "the payload";
         byte[] encodedPayload = new byte[0];
@@ -105,13 +105,14 @@ public class Messenger extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messenger);
-        messenger = findViewById(R.id.messenger);
-        getAll();
-        String clientId = MqttClient.generateClientId();
+       // messenger = findViewById(R.id.messenger);
+     //   getAll();
+      /*  String clientId = MqttClient.generateClientId();
         MqttAndroidClient client =
                 new MqttAndroidClient(this.getApplicationContext(), "tcp://broker.hivemq.com:1883",
                         clientId);
@@ -142,6 +143,7 @@ public class Messenger extends AppCompatActivity {
         } catch (MqttException e) {
             e.printStackTrace();
         }
+        */
     }
 
 
@@ -151,15 +153,15 @@ public class Messenger extends AppCompatActivity {
     }
     // TODO: Rename method, update argument and hook method into UI event
     private List<Message> getAll(){
-        final RecyclerView recyclerview ;
-        if (retrofit==null){
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        recyclerview = (RecyclerView) findViewById(R.id.recycler);
-        List<Message> list= new ArrayList<Message>() ;
+      //  final RecyclerView recyclerview ;
+      //  if (retrofit==null){
+        //    retrofit = new Retrofit.Builder()
+       //             .baseUrl(BASE_URL)
+      //              .addConverterFactory(GsonConverterFactory.create())
+     //               .build();
+    //    }
+  //      recyclerview = (RecyclerView) findViewById(R.id.recycler);
+  //      List<Message> list= new ArrayList<Message>() ;
         // list= Arrays.asList("hh","hh","yes");
 /*
         for (int i=1 ; i<5;i++){
@@ -167,17 +169,17 @@ public class Messenger extends AppCompatActivity {
         }
         list.add("hassen");
   */    //  list.addAll(getAllPlans());
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
-        recyclerview.addItemDecoration(new Messenger.GridSpacing(2, dpTopx(10) ,true));
-        recyclerview.setLayoutManager(layoutManager);
+     //   RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
+     //   recyclerview.addItemDecoration(new Messenger.GridSpacing(2, dpTopx(10) ,true));
+     //   recyclerview.setLayoutManager(layoutManager);
 
 
 
         final List<Message> plans = new ArrayList<Message>();
-        MessageInterface messageInterface= retrofit.create(MessageInterface.class);
-        Call<List<Message>> call = messageInterface.getall();
-        call.enqueue(new Callback<List<Message>>() {
-            @Override
+     //   MessageInterface messageInterface= retrofit.create(MessageInterface.class);
+     //   Call<List<Message>> call = messageInterface.getall();
+      //  call.enqueue(new Callback<List<Message>>() {
+      /*      @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
                 Toast.makeText(getApplicationContext(),response.body().toString(),Toast.LENGTH_SHORT).show();
                 for(int i =0 ;i<response.body().size();i++){
@@ -188,15 +190,49 @@ public class Messenger extends AppCompatActivity {
                 plans.addAll(response.body());
 
             }
-
-            @Override
+*/
+ /*           @Override
             public void onFailure(Call<List<Message>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),"failure",Toast.LENGTH_SHORT).show();
 
             }
         });
-        return plans;
+   */     return plans;
     }
+
+
+
+/*
+    private List<Message> getAlloffline(){
+        final RecyclerView recyclerview ;
+        recyclerview = (RecyclerView) findViewById(R.id.messengerRecycler);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
+        recyclerview.addItemDecoration(new Messenger.GridSpacing(2, dpTopx(10) ,true));
+        recyclerview.setLayoutManager(layoutManager);
+        final List<Message> messages = new ArrayList<Message>();
+        Message message = new Message();
+        message.setId(1);
+        message.setMessage("hello");
+        messages.add(message);
+        message.setId(2);
+        message.setMessage("hi");
+        messages.add(message);
+        message.setId(3);
+        message.setMessage("how are you ?");
+        messages.add(message);
+        message.setId(4);
+        message.setMessage("fine and you ?");
+        messages.add(message);
+        message.setId(1);
+        message.setMessage("me too");
+        messages.add(message);
+                    RecyclerView.Adapter madapter = new MessageAdapter(messages);
+                    recyclerview.setAdapter(madapter);
+        return messages;
+    }
+*/
+
+
     public class GridSpacing extends RecyclerView.ItemDecoration{
         private int count ;
         private int spacing ;

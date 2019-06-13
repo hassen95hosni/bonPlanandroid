@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bestoption</string>
+    <string name="app_name">Bon Plan</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -13,12 +13,12 @@
         completions."
     </string>
     <string name="title_activity_profile">profile</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_home">acceuil</string>
+    <string name="title_dashboard">acceuil</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_activity_most_known">mostKnown</string>
+    <string name="title_activity_most_known">connue</string>
     <string name="title_activity_categories">categories</string>
-    <string name="title_activity_favorites">favorites</string>
+    <string name="title_activity_favorites">favories</string>
     <string name="title_activity_conversations">conversations</string>
 
     <!-- TODO: Remove or change this placeholder text -->

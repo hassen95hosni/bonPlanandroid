@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.bestoption.design.customfonts.MyTextView;
+
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -82,7 +84,7 @@ public class profilef extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_profilef, container, false);
-        logout = (TextView) view.findViewById(R.id.textView22);
+        logout = (MyTextView) view.findViewById(R.id.logout);
         logout.setOnClickListener(this);
         return view;
     }
@@ -130,4 +132,5 @@ public class profilef extends Fragment implements View.OnClickListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

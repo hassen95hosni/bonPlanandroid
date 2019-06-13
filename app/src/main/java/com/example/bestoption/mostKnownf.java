@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.bestoption.ADAPTERS.MyAdapter;
+import com.example.bestoption.entity.Category;
+import com.example.bestoption.entity.City;
 import com.example.bestoption.entity.Plans;
 import com.example.bestoption.interfaces.PlanInterface;
 
@@ -27,6 +29,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -47,9 +51,9 @@ public class mostKnownf extends Fragment {
   /*  private String mParam1;
     private String mParam2;
 */
-    private OnFragmentInteractionListener mListener;
-    private  static Retrofit retrofit = null;
-    public static final String BASE_URL= "http://192.168.43.227:1330/";
+   // private OnFragmentInteractionListener mListener;
+  //  private  static Retrofit retrofit = null;
+  //  public static final String BASE_URL= "http://192.168.43.227:1330/";
 
     public mostKnownf() {
         // Required empty public constructor
@@ -92,7 +96,15 @@ public class mostKnownf extends Fragment {
 
         //RecyclerView recyclerview ;
         View view = inflater.inflate(R.layout.fragment_most_knownf, container, false);
-        //recyclerview = (RecyclerView) view.findViewById(R.id.recycler);
+
+        getAllPlansofline(view);
+
+
+
+
+
+
+        //588+recyclerview = (RecyclerView) view.findViewById(R.id.recycler);
        // List<Plans> list= new ArrayList<>() ;
        // list= Arrays.asList("hh","hh","yes");
 /*
@@ -100,7 +112,7 @@ public class mostKnownf extends Fragment {
             list.add("article "+i);
         }
         list.add("hassen");
-  */      getAllPlans(view);
+  */      //getAllPlans(view);
         //RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         //recyclerview.addItemDecoration(new GridSpacing(2, dpTopx(10) ,true));
         //recyclerview.setLayoutManager(layoutManager);
@@ -121,11 +133,12 @@ public class mostKnownf extends Fragment {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,dp,r.getDisplayMetrics()));
     }
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+   /* public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
+    }*/
+/*
     private List<Plans> getAllPlans(View view){
         final RecyclerView recyclerview ;
         if (retrofit==null){
@@ -134,6 +147,7 @@ public class mostKnownf extends Fragment {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
+
         recyclerview = (RecyclerView) view.findViewById(R.id.recycler);
         List<Plans> list= new ArrayList<>() ;
         // list= Arrays.asList("hh","hh","yes");
@@ -143,7 +157,7 @@ public class mostKnownf extends Fragment {
         }
         list.add("hassen");
   */    //  list.addAll(getAllPlans());
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
+  /*      RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerview.addItemDecoration(new GridSpacing(2, dpTopx(10) ,true));
         recyclerview.setLayoutManager(layoutManager);
 
@@ -151,7 +165,7 @@ public class mostKnownf extends Fragment {
 
         final List<Plans> plans = new ArrayList<Plans>();
         PlanInterface planInterface= retrofit.create(PlanInterface.class);
-        SharedPreferences sharedPreferences =  this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences =  this.getActivity().getSharedPreferences("login", MODE_PRIVATE);
         sharedPreferences.getString("login","false");
         if(sharedPreferences.getString("login","false").equals("false")){
             Call<List<Plans>> calls = planInterface.getallnonauth();
@@ -200,6 +214,133 @@ public class mostKnownf extends Fragment {
             });
 
         }
+        Plans plans1 = new Plans();
+        plans1.setName("the diesel");
+        Category category = new Category();
+        category.setName("restaurent");
+        plans1.setCategory(category);
+        City city = new City();
+        city.setName("sousse");
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("the diesel restaurent provides you with the most delicious meals");
+        plans1.setDescriptionLong("with its variouty of sidhes the dissiel will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        plans1.setName("westside");
+        category.setName("restaurent");
+        plans1.setCategory(category);
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("the westside restaurent provides you with the most delicious meals");
+        plans1.setDescriptionLong("with its variouty of sidhes westside will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        plans1.setName("believe");
+        category.setName("restaurent");
+        plans1.setCategory(category);
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("belive restaurent provides you with the most delicious meals");
+        plans1.setDescriptionLong("with its variouty of sidhes westside will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        plans1.setName("Toscana");
+        category.setName("restaurent");
+        plans1.setCategory(category);
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("Toscana restaurent provides you with the most delicious meals");
+        plans1.setDescriptionLong("with its variouty of sidhes westside will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        plans1.setName("Mio Mondo");
+        category.setName("Salon de the");
+        plans1.setCategory(category);
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("Mio mondo provides you with the most delicious meals");
+        plans1.setDescriptionLong("with its variouty of sidhes westside will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        plans1.setName("le Coin");
+        category.setName("restaurent");
+        plans1.setCategory(category);
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("le Coin restaurent provides you with the most delicious meals");
+        plans1.setDescriptionLong("with its variouty of dishes restaurent will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        RecyclerView.Adapter madapterr = new MyAdapter(plans);
+        recyclerview.setAdapter(madapterr);
+
+
+
+        return plans;
+    }
+
+*/
+
+
+    private List<Plans> getAllPlansofline(View view){
+        final RecyclerView recyclerview ;
+        recyclerview = (RecyclerView) view.findViewById(R.id.recycler);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
+        recyclerview.addItemDecoration(new GridSpacing(2, dpTopx(0) ,true));
+        recyclerview.setLayoutManager(layoutManager);
+        final List<Plans> plans = new ArrayList<Plans>();
+
+        Plans plans1 = new Plans();
+        plans1.setName("the diesel");
+        Category category = new Category();
+        category.setName("restaurent");
+        plans1.setCategory(category);
+        City city = new City();
+        city.setName("sousse");
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("Éclose en 1995, la Piazzetta Chicoutimi s’est très vite fait une place de choix dans le cœur des gourmets de la région, au point où elle y est pratiquement devenue une institution.  Sans doute que sa situation exceptionnelle y est pour quelque chose; jugez-en plutôt.  Sertie en plein cœur du centre-ville, dans l’ancienne gare de train, sur le bord d’un Saguenay que tous saluent comme magnifique – voire fabuleux – la Piazzetta jouit d’un emplacement exceptionnel, à 2 pas de la marina et du Vieux-Port.");
+        plans1.setDescriptionLong("with its variouty of sidhes the dissiel will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        plans1.setName("westside");
+        category.setName("restaurent");
+        plans1.setCategory(category);
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("the westside restaurent provides you with the most delicious meals");
+        plans1.setDescriptionLong("with its variouty of sidhes westside will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        plans1.setName("believe");
+        category.setName("restaurent");
+        plans1.setCategory(category);
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("belive restaurent provides you with the most delicious meals");
+        plans1.setDescriptionLong("with its variouty of sidhes westside will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        plans1.setName("Toscana");
+        category.setName("restaurent");
+        plans1.setCategory(category);
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("Toscana restaurent provides you with the most delicious meals");
+        plans1.setDescriptionLong("with its variouty of sidhes westside will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        plans1.setName("Mio Mondo");
+        category.setName("Salon de the");
+        plans1.setCategory(category);
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("Mio mondo provides you with the most delicious meals");
+        plans1.setDescriptionLong("with its variouty of sidhes westside will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        plans1.setName("le Coin");
+        category.setName("restaurent");
+        plans1.setCategory(category);
+        plans1.setCity(city);
+        plans1.setDescriptionCourt("Éclose en 1995, la Piazzetta Chicoutimi s’est très vite fait une place de choix dans le cœur des gourmets de la région, au point où elle y est pratiquement devenue une institution.  Sans doute que sa situation exceptionnelle y est pour quelque chose; jugez-en plutôt.  Sertie en plein cœur du centre-ville, dans l’ancienne gare de train, sur le bord d’un Saguenay que tous saluent comme magnifique – voire fabuleux – la Piazzetta jouit d’un emplacement exceptionnel, à 2 pas de la marina et du Vieux-Port.");
+        plans1.setDescriptionLong("with its variouty of dishes restaurent will provide with whatever food you may desire with delecious beverage");
+        plans.add(plans1);
+        RecyclerView.Adapter madapterr = new MyAdapter(plans);
+        recyclerview.setAdapter(madapterr);
+      //  SharedPreferences.Editor sh = this.getActivity().getSharedPreferences("login", MODE_PRIVATE).edit();
+      //  SharedPreferences sharedPreferences =  this.getActivity().getSharedPreferences("login", MODE_PRIVATE);
+    //    if(sharedPreferences.contains("login")){
+         //               RecyclerView.Adapter madapter = new MyAdapter(plans);
+        //                recyclerview.setAdapter(madapter);
+         //       }
+
+       // else {
+         //   RecyclerView.Adapter madapter = new MyAdapter(plans);
+            //            recyclerview.setAdapter(madapter);
+       //             }
+
+
+
         return plans;
     }
 /*
@@ -230,10 +371,11 @@ public class mostKnownf extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+    /*
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
+    }*/
     public class GridSpacing extends RecyclerView.ItemDecoration{
   private int count ;
   private int spacing ;

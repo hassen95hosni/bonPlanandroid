@@ -72,7 +72,7 @@ public class categoriesf extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_categoriesf, container, false);
-        getAll(view);
+        getAllofline(view);
         return view;
     }
 
@@ -129,6 +129,26 @@ public class categoriesf extends Fragment {
         return plans;
     }
 
+
+    private List<Category> getAllofline(View view){
+        final RecyclerView recyclerview ;
+        recyclerview = (RecyclerView) view.findViewById(R.id.recyclercatgories);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
+        //recyclerview.addItemDecoration(new categoriesf.GridSpacing(2, dpTopx(20) ,true));
+        recyclerview.setLayoutManager(layoutManager);
+        List<Category> categories = new ArrayList<Category>();
+        Category category = new Category();
+        category.setId(4);
+        category.setName("restaurents");
+        categories.add(category);
+        category.setId(4);
+        category.setName("hotel");
+        categories.add(category);
+
+        RecyclerView.Adapter madapter = new CategoriesAdapter(categories);
+        recyclerview.setAdapter(madapter);
+        return categories;
+    }
 
 
 
