@@ -2,6 +2,7 @@ package com.example.bestoption;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,7 +35,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Splash extends AppCompatActivity {
-/*
+public String CHANNEL_ID="notification";
+    /*
     private void sub (MqttAndroidClient client){
         String topic = "notification";
         int qos = 1;
@@ -67,9 +69,24 @@ public class Splash extends AppCompatActivity {
     }
 */
 
-
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.app_name);
+            String description = getString(R.string.app_name);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        createNotificationChannel();
         try {
        //     String clientId = MqttClient.generateClientId();
          //   MqttAndroidClient client =
@@ -110,6 +127,19 @@ public class Splash extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         setContentView(R.layout.activity_splash);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                .setContentTitle("notification")
+                .setContentText("text here")
+          //      .setChannelId("yes")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent notificationIntent = new Intent(this,mostKnown.class);
+        PendingIntent contentInetnt = PendingIntent.getActivity(this,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentInetnt);
+        manager.notify(0,builder.build());
+
         new Timer().schedule(new TimerTask(){
             public void run() {
 
@@ -132,4 +162,22 @@ public class Splash extends AppCompatActivity {
         }, 2000 );
 
     }
+   /* private void createNotificationChannel() {
+// Create the NotificationChannel, but only on API 26+ because
+// the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.app_name);
+            String description = getString(R.string.app_name);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("yes", name,
+                    importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviours after this
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
+    }*/
 }

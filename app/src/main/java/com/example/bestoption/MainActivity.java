@@ -1,7 +1,11 @@
 package com.example.bestoption;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +28,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this,signup.class));
     }
     public void skip (View v ){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ibytes)
+                .setContentTitle("notification")
+                .setContentText("text here")
+                .setChannelId("")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent notificationIntent = new Intent(this,mostKnown.class);
+        PendingIntent contentInetnt = PendingIntent.getActivity(this,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentInetnt);
+        manager.notify(0,builder.build());
+
         startActivity(new Intent(MainActivity.this,mostKnown.class));
     }
 

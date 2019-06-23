@@ -42,7 +42,7 @@ public class categoriesf extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private  static Retrofit retrofit = null;
-    public static final String BASE_URL= "http://192.168.43.227:1330/";
+    public static final String BASE_URL= "https://192.168.43.227:1330/";
 
     public categoriesf() {
         // Required empty public constructor

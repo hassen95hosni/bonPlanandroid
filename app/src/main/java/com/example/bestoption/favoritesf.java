@@ -44,8 +44,8 @@ public class favoritesf extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
   //  private static final String ARG_PARAM1 = "param1";
     //private static final String ARG_PARAM2 = "param2";
-   // private  static Retrofit retrofit = null;
-   // public static final String BASE_URL= "http://192.168.43.227:1330/";
+    private  static Retrofit retrofit = null;
+    public static final String BASE_URL= "https://192.168.43.227:1330/";
 
 
     // TODO: Rename and change types of parameters
@@ -125,13 +125,13 @@ public class favoritesf extends Fragment {
 
     private List<Plans> getAllPlans(View view){
         final RecyclerView recyclerview ;
-     /*   if (retrofit==null){
+        if (retrofit==null){
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-*/
+
         recyclerview = (RecyclerView) view.findViewById(R.id.favoritesrecycler);
         List<Plans> list= new ArrayList<>() ;
         // list= Arrays.asList("hh","hh","yes");
@@ -148,34 +148,34 @@ public class favoritesf extends Fragment {
 
 
         final List<Plans> plans = new ArrayList<Plans>();
-        //PlanInterface planInterface= retrofit.create(PlanInterface.class);
-       // SharedPreferences sharedPreferences =  this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-       // sharedPreferences.getString("login","false");
-       // if(sharedPreferences.getString("login","false").equals("false")){
-         //   Call<List<Plans>> calls = planInterface.getallnonauth();
-          //  calls.enqueue(new Callback<List<Plans>>() {
-            //    @Override
-             //   public void onResponse(Call<List<Plans>> call, Response<List<Plans>> response) {
-                    //Toast.makeText(getContext(),"success",Toast.LENGTH_SHORT).show();
-             //       Toast.makeText(getContext(),response.body().toString(),Toast.LENGTH_SHORT).show();
-                //    for(int i =0 ;i<response.body().size();i++){
-                 //       Toast.makeText(getContext(),response.body().get(i).getName(),Toast.LENGTH_SHORT).show();
-                //        RecyclerView.Adapter madapter = new MyAdapter(response.body());
-                 //       recyclerview.setAdapter(madapter);
-                  //  }
-                  //  plans.addAll(response.body());
+        PlanInterface planInterface= retrofit.create(PlanInterface.class);
+        SharedPreferences sharedPreferences =  this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        sharedPreferences.getString("login","false");
+        if(sharedPreferences.getString("login","false").equals("false")){
+            Call<List<Plans>> calls = planInterface.getallnonauth();
+            calls.enqueue(new Callback<List<Plans>>() {
+               @Override
+                public void onResponse(Call<List<Plans>> call, Response<List<Plans>> response) {
+                    Toast.makeText(getContext(),"success",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),response.body().toString(),Toast.LENGTH_SHORT).show();
+                    for(int i =0 ;i<response.body().size();i++){
+                        Toast.makeText(getContext(),response.body().get(i).getName(),Toast.LENGTH_SHORT).show();
+                        RecyclerView.Adapter madapter = new MyAdapter(response.body());
+                        recyclerview.setAdapter(madapter);
+                    }
+                    plans.addAll(response.body());
 
-               // }
+                }
 
-             /*   @Override
+                @Override
                 public void onFailure(Call<List<Plans>> call, Throwable t) {
                     Toast.makeText(getContext(),"failure",Toast.LENGTH_SHORT).show();
 
                 }
             });
-*/
-  //      }
-    /*    else {
+
+        }
+        else {
             Call<List<Plans>> call = planInterface.getall();
             call.enqueue(new Callback<List<Plans>>() {
                 @Override
@@ -198,7 +198,7 @@ public class favoritesf extends Fragment {
             });
 
         }
-     */   return plans;
+        return plans;
     }
 
 

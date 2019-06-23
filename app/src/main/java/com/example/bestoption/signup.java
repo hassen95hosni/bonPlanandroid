@@ -16,6 +16,9 @@ import com.example.bestoption.entity.User;
 import com.example.bestoption.interfaces.UserInetrface;
 import com.google.gson.Gson;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -108,5 +111,53 @@ public class signup extends AppCompatActivity {
         //else {
           //  Toast.makeText(getApplicationContext(),"password is not confirmed",Toast.LENGTH_SHORT).show();
       //  }
+
+
+
+
+
     }
+    public Boolean passwordVerification(String password){
+        Pattern pattern = Pattern.compile("[^A-Za-z0-9]");
+        Matcher matcher = pattern.matcher(password);
+        boolean result = matcher.find();
+        if (password.length()>8 && result){
+             pattern = Pattern.compile( "[0-9]" );
+             matcher = pattern.matcher( password );
+             result = matcher.find();
+            return result ;
+
+        }
+        else return false;
+    }
+
+
+        public Boolean sqlInjection(String text){
+            if(text.contains("'")|| text.contains("Select")||text.contains("drop")||text.contains("from")){
+                return false;
+            }
+            else return true;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

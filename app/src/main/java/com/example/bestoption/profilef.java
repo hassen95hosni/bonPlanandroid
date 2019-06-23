@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bestoption.design.customfonts.MyTextView;
@@ -86,6 +87,14 @@ public class profilef extends Fragment implements View.OnClickListener {
         View view =inflater.inflate(R.layout.fragment_profilef, container, false);
         logout = (MyTextView) view.findViewById(R.id.logout);
         logout.setOnClickListener(this);
+        ImageView addplan = (ImageView) view.findViewById(R.id.imageView2);
+        addplan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent j = new Intent(getActivity(), NewPlan.class);
+                startActivity(j);
+            }
+        });
         return view;
     }
 
