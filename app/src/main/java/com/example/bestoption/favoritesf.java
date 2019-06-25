@@ -1,6 +1,7 @@
 package com.example.bestoption;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -19,6 +20,7 @@ import com.example.bestoption.ADAPTERS.MyAdapter;
 import com.example.bestoption.entity.Category;
 import com.example.bestoption.entity.City;
 import com.example.bestoption.entity.Plans;
+import com.example.bestoption.interfaces.OnItemClickListener;
 import com.example.bestoption.interfaces.PlanInterface;
 
 import java.util.ArrayList;
@@ -39,7 +41,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Use the {@link favoritesf#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class favoritesf extends Fragment {
+public class favoritesf extends Fragment implements OnItemClickListener {
+    private List<Plans> plans;
+    OnItemClickListener onItemClickListener;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
   //  private static final String ARG_PARAM1 = "param1";
@@ -92,6 +96,13 @@ public class favoritesf extends Fragment {
         View v = inflater.inflate(R.layout.fragment_favoritesf, container, false);
         getAllPlansofline(v);
         return v;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        plans.get(position);
+        startActivity(new Intent(getActivity(),details.class));
+
     }
 
 
@@ -160,7 +171,7 @@ public class favoritesf extends Fragment {
                     Toast.makeText(getContext(),response.body().toString(),Toast.LENGTH_SHORT).show();
                     for(int i =0 ;i<response.body().size();i++){
                         Toast.makeText(getContext(),response.body().get(i).getName(),Toast.LENGTH_SHORT).show();
-                        RecyclerView.Adapter madapter = new MyAdapter(response.body());
+                        RecyclerView.Adapter madapter = new MyAdapter(response.body(),onItemClickListener);
                         recyclerview.setAdapter(madapter);
                     }
                     plans.addAll(response.body());
@@ -184,7 +195,7 @@ public class favoritesf extends Fragment {
                     Toast.makeText(getContext(),response.body().toString(),Toast.LENGTH_SHORT).show();
                     for(int i =0 ;i<response.body().size();i++){
                         Toast.makeText(getContext(),response.body().get(i).getName(),Toast.LENGTH_SHORT).show();
-                        RecyclerView.Adapter madapter = new MyAdapter(response.body());
+                        RecyclerView.Adapter madapter = new MyAdapter(response.body(),onItemClickListener);
                         recyclerview.setAdapter(madapter);
                     }
                     plans.addAll(response.body());
@@ -210,7 +221,7 @@ public class favoritesf extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerview.addItemDecoration(new favoritesf.GridSpacing(2, dpTopx(10) ,true));
         recyclerview.setLayoutManager(layoutManager);
-        final List<Plans> plans = new ArrayList<Plans>();
+        plans = new ArrayList<Plans>();
         Plans plans1 = new Plans();
         plans1.setName("the diesel");
         Category category = new Category();
@@ -223,18 +234,18 @@ public class favoritesf extends Fragment {
         plans1.setDescriptionLong("with its variouty of sidhes the dissiel will provide with whatever food you may desire with delecious beverage");
         plans.add(plans1);
 
-        RecyclerView.Adapter madapterr = new MyAdapter(plans);
+        RecyclerView.Adapter madapterr = new MyAdapter(plans,this);
         recyclerview.setAdapter(madapterr);
 
        SharedPreferences sharedPreferences =  this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
         sharedPreferences.getString("login","false");
         if(sharedPreferences.getString("login","false").equals("false")){
-            RecyclerView.Adapter madapter = new MyAdapter(plans);
+            RecyclerView.Adapter madapter = new MyAdapter(plans,this);
             recyclerview.setAdapter(madapter);
         }
 
         else {
-            RecyclerView.Adapter madapter = new MyAdapter(plans);
+            RecyclerView.Adapter madapter = new MyAdapter(plans,this);
             recyclerview.setAdapter(madapter);
         }
 

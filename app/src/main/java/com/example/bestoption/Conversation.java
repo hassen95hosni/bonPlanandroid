@@ -1,6 +1,7 @@
 package com.example.bestoption;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import com.example.bestoption.ADAPTERS.ConversationAdapter;
 import com.example.bestoption.ADAPTERS.MyAdapter;
 import com.example.bestoption.entity.Plans;
 import com.example.bestoption.interfaces.ConversationInterface;
+import com.example.bestoption.interfaces.OnItemClickListener;
 import com.example.bestoption.interfaces.PlanInterface;
 
 import java.util.ArrayList;
@@ -29,7 +31,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Conversation extends Fragment {
+public class Conversation extends Fragment implements OnItemClickListener {
+    List<com.example.bestoption.entity.Conversation> conversations;
+    OnItemClickListener onItemClickListener;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -118,7 +122,7 @@ public class Conversation extends Fragment {
                 Toast.makeText(getContext(),response.body().toString(),Toast.LENGTH_SHORT).show();
                 for(int i =0 ;i<response.body().size();i++){
                     Toast.makeText(getContext(),response.body().get(i).getName(),Toast.LENGTH_SHORT).show();
-                    RecyclerView.Adapter madapter = new ConversationAdapter(response.body());
+                    RecyclerView.Adapter madapter = new ConversationAdapter(response.body(),onItemClickListener);
                     recyclerview.setAdapter(madapter);
                 }
                 plans.addAll(response.body());
@@ -140,7 +144,7 @@ public class Conversation extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
        // recyclerview.addItemDecoration(new Conversation.GridSpacing(2, dpTopx(10) ,true));
         recyclerview.setLayoutManager(layoutManager);
-        List<com.example.bestoption.entity.Conversation> conversations = new ArrayList<com.example.bestoption.entity.Conversation>();
+       conversations = new ArrayList<com.example.bestoption.entity.Conversation>();
         com.example.bestoption.entity.Conversation conversation = new com.example.bestoption.entity.Conversation();
         conversation.setId(1);
         conversation.setName("intissar");
@@ -148,9 +152,14 @@ public class Conversation extends Fragment {
         conversation.setId(2);
         conversation.setName("hiba");
         conversations.add(conversation);
-        RecyclerView.Adapter madapter = new ConversationAdapter(conversations);
+        RecyclerView.Adapter madapter = new ConversationAdapter(conversations,this);
         recyclerview.setAdapter(madapter);
         return conversations;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        startActivity(new Intent(getContext(),Messenger.class));
     }
 
     // TODO: Rename method, update argument and hook method into UI event

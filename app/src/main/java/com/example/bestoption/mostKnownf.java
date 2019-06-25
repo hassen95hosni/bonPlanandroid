@@ -1,6 +1,7 @@
 package com.example.bestoption;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -19,6 +20,7 @@ import com.example.bestoption.ADAPTERS.MyAdapter;
 import com.example.bestoption.entity.Category;
 import com.example.bestoption.entity.City;
 import com.example.bestoption.entity.Plans;
+import com.example.bestoption.interfaces.OnItemClickListener;
 import com.example.bestoption.interfaces.PlanInterface;
 
 import java.util.ArrayList;
@@ -36,12 +38,14 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link mostKnownf.OnFragmentInteractionListener} interface
+
  * to handle interaction events.
  * Use the {@link mostKnownf#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class mostKnownf extends Fragment {
+public class mostKnownf extends Fragment
+        implements OnItemClickListener {
+    private List<Plans> plans;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 /*    private static final String ARG_PARAM1 = "param1";
@@ -272,12 +276,13 @@ public class mostKnownf extends Fragment {
 
 
     private List<Plans> getAllPlansofline(View view){
+
         final RecyclerView recyclerview ;
         recyclerview = (RecyclerView) view.findViewById(R.id.recycler);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),2);
         recyclerview.addItemDecoration(new GridSpacing(2, dpTopx(0) ,true));
         recyclerview.setLayoutManager(layoutManager);
-        final List<Plans> plans = new ArrayList<Plans>();
+        plans = new ArrayList<Plans>();
 
         Plans plans1 = new Plans();
         plans1.setName("the diesel");
@@ -325,7 +330,7 @@ public class mostKnownf extends Fragment {
         plans1.setDescriptionCourt("Éclose en 1995, la Piazzetta Chicoutimi s’est très vite fait une place de choix dans le cœur des gourmets de la région, au point où elle y est pratiquement devenue une institution.  Sans doute que sa situation exceptionnelle y est pour quelque chose; jugez-en plutôt.  Sertie en plein cœur du centre-ville, dans l’ancienne gare de train, sur le bord d’un Saguenay que tous saluent comme magnifique – voire fabuleux – la Piazzetta jouit d’un emplacement exceptionnel, à 2 pas de la marina et du Vieux-Port.");
         plans1.setDescriptionLong("with its variouty of dishes restaurent will provide with whatever food you may desire with delecious beverage");
         plans.add(plans1);
-        RecyclerView.Adapter madapterr = new MyAdapter(plans);
+        RecyclerView.Adapter madapterr = new MyAdapter(plans,this);
         recyclerview.setAdapter(madapterr);
       //  SharedPreferences.Editor sh = this.getActivity().getSharedPreferences("login", MODE_PRIVATE).edit();
       //  SharedPreferences sharedPreferences =  this.getActivity().getSharedPreferences("login", MODE_PRIVATE);
@@ -342,6 +347,12 @@ public class mostKnownf extends Fragment {
 
 
         return plans;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        plans.get(position);
+        startActivity(new Intent(getActivity(),details.class));
     }
 /*
     @Override

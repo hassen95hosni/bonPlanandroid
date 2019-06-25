@@ -1,5 +1,6 @@
 package com.example.bestoption;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,5 +16,7 @@ public class details extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
     }
-
+public void toMessage(View v ){
+        startActivity(new Intent(this,Messenger.class));
+}
 }

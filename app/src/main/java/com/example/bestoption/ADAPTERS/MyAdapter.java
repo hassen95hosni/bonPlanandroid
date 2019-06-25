@@ -9,24 +9,28 @@ import android.widget.TextView;
 
 import com.example.bestoption.R;
 import com.example.bestoption.entity.Plans;
+import com.example.bestoption.interfaces.OnItemClickListener;
 
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private List<Plans> list ;
-    public MyAdapter(List<Plans> lists) {
+    private OnItemClickListener onItemClickListener;
+    public MyAdapter(List<Plans> lists,OnItemClickListener onItemClickListener) {
         list= lists;
+        this.onItemClickListener = onItemClickListener;
     }
     private View.OnClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(View.OnClickListener itemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener,View.OnClickListener itemClickListener) {
         mOnItemClickListener = itemClickListener;
+        this.onItemClickListener=onItemClickListener;
     }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder( ViewGroup viewGroup, int i) {
         View v =  LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.offre_info,viewGroup,false);
-        MyViewHolder mv = new MyViewHolder(v);
+        MyViewHolder mv = new MyViewHolder(v,onItemClickListener);
         return mv;
     }
 
@@ -42,17 +46,25 @@ myViewHolder.description.setText((list.get(i).getDescriptionCourt()));
         return list.size();
     }
 
-    public  static  class MyViewHolder extends RecyclerView.ViewHolder{
+    public  static  class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView text ;
         public TextView description;
-    public MyViewHolder(View v) {
+        OnItemClickListener onItemClickListener;
+    public MyViewHolder(View v,OnItemClickListener onItemClickListener) {
 
         super(v);
         text = (TextView) v.findViewById(R.id.textView3);
         description = (TextView) v.findViewById(R.id.textView30);
+        this.onItemClickListener=onItemClickListener;
+        v.setOnClickListener(this);
+
     }
 
-}
+        @Override
+        public void onClick(View v) {
+            onItemClickListener.onItemClick(getAdapterPosition());
+        }
+    }
 
 
 }

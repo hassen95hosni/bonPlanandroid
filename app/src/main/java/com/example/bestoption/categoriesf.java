@@ -19,6 +19,7 @@ import com.example.bestoption.ADAPTERS.MyAdapter;
 import com.example.bestoption.entity.Category;
 import com.example.bestoption.entity.Plans;
 import com.example.bestoption.interfaces.CategoryInterface;
+import com.example.bestoption.interfaces.OnItemClickListener;
 import com.example.bestoption.interfaces.PlanInterface;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class categoriesf extends Fragment {
+public class categoriesf extends Fragment  implements OnItemClickListener  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
    // private static final String ARG_PARAM1 = "param1";
@@ -43,6 +44,8 @@ public class categoriesf extends Fragment {
     private OnFragmentInteractionListener mListener;
     private  static Retrofit retrofit = null;
     public static final String BASE_URL= "https://192.168.43.227:1330/";
+    OnItemClickListener onItemClickListener;
+    List<Category> categories;
 
     public categoriesf() {
         // Required empty public constructor
@@ -112,7 +115,9 @@ public class categoriesf extends Fragment {
                 Toast.makeText(getContext(),response.body().toString(),Toast.LENGTH_SHORT).show();
                 for(int i =0 ;i<response.body().size();i++){
                     Toast.makeText(getContext(),response.body().get(i).getName(),Toast.LENGTH_SHORT).show();
-                    RecyclerView.Adapter madapter = new CategoriesAdapter(response.body());
+
+                    RecyclerView.Adapter madapter = new CategoriesAdapter(response.body(),onItemClickListener);
+                    categories=response.body();
                     recyclerview.setAdapter(madapter);
                 }
                 plans.addAll(response.body());
@@ -136,7 +141,7 @@ public class categoriesf extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(),1);
         //recyclerview.addItemDecoration(new categoriesf.GridSpacing(2, dpTopx(20) ,true));
         recyclerview.setLayoutManager(layoutManager);
-        List<Category> categories = new ArrayList<Category>();
+         categories = new ArrayList<Category>();
         Category category = new Category();
         category.setId(4);
         category.setName("restaurents");
@@ -145,7 +150,7 @@ public class categoriesf extends Fragment {
         category.setName("hotel");
         categories.add(category);
 
-        RecyclerView.Adapter madapter = new CategoriesAdapter(categories);
+        RecyclerView.Adapter madapter = new CategoriesAdapter(categories,onItemClickListener);
         recyclerview.setAdapter(madapter);
         return categories;
     }
@@ -160,6 +165,11 @@ public class categoriesf extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getContext(),"still on develope",Toast.LENGTH_LONG).show();
     }
 /*
     @Override
