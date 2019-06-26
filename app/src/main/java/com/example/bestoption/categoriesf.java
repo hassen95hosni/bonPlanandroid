@@ -1,6 +1,7 @@
 package com.example.bestoption;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -149,8 +150,11 @@ public class categoriesf extends Fragment  implements OnItemClickListener  {
         category.setId(4);
         category.setName("hotel");
         categories.add(category);
+        category.setId(4);
+        category.setName("restaurents");
+        categories.add(category);
 
-        RecyclerView.Adapter madapter = new CategoriesAdapter(categories,onItemClickListener);
+        RecyclerView.Adapter madapter = new CategoriesAdapter(categories,this);
         recyclerview.setAdapter(madapter);
         return categories;
     }
@@ -169,7 +173,8 @@ public class categoriesf extends Fragment  implements OnItemClickListener  {
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(getContext(),"still on develope",Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(),"resaurents category,still on develope",Toast.LENGTH_LONG).show();
+        startActivity(new Intent(getActivity(),mostKnown.class));
     }
 /*
     @Override

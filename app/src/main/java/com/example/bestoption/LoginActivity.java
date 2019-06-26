@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -37,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bestoption.design.MyEditText;
+import com.example.bestoption.entity.Global;
 import com.example.bestoption.entity.User;
 import com.example.bestoption.interfaces.UserInetrface;
 import com.google.gson.Gson;
@@ -92,19 +95,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     }
-    public Boolean auth (final String email , final String password){
-/*
-            if (retrofit==null){
-                retrofit = new Retrofit.Builder()
-                        .baseUrl(BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-            }
+
+    public void online(){
+
+        if (retrofit==null){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
         UserInetrface userInetrface = retrofit.create(UserInetrface.class);
         Call<User> call = userInetrface.getall();
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+
                 if(response.body().getEmail().isEmpty()){
                     Toast.makeText(getApplicationContext(),"wrong email or password",Toast.LENGTH_SHORT).show();
 
@@ -124,49 +129,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     startActivity(new Intent(LoginActivity.this,mostKnown.class));
 
                 }
-
+            }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),"connection failure",Toast.LENGTH_SHORT).show();
 
             }
 
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                User user = response.body();
-                    if (user.getName().isEmpty()){
-                        Toast.makeText(getApplicationContext(),"wrong email or password",Toast.LENGTH_SHORT).show();
-
-
-                    }
-
-                    else
-                        startActivity(new Intent(LoginActivity.this,mostKnown.class));
-
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            Toast.makeText(getApplicationContext(),"failure",Toast.LENGTH_SHORT).show();
-            }
-
         });
 
-*/
-List<User>users = new ArrayList<User>();
-        for (int i =0;i<5;i++) {
+
+    }
+    public void offline(){
+        final Global global = (Global) getApplicationContext();
+        List<User>users = new ArrayList<User>();
+        try {
+            users.addAll( global.getUsers());
+
+        }
+catch (Exception e)
+{
+
+}
             userr.setEmail("hiba@gmail.com");
             userr.setPassword("hiba1");
             users.add(userr);
-        }
+        users.add(userr);
         for (int i =0;i<users.size();i++) {
-            if(users.get(i).getEmail().equals(email)){
-                if (users.get(i).getPassword().equals(password)){
+            if(users.get(i).getEmail().equals(email.getText().toString())){
+                if (users.get(i).getPassword().equals(password.getText().toString())){
                     SharedPreferences.Editor sh = getSharedPreferences("login",MODE_PRIVATE).edit();
                     sh.putString("login","True");
+                    sh.commit();
                     SharedPreferences.Editor sheditor = getSharedPreferences("user",MODE_PRIVATE).edit();
                     sheditor.putString("name","hiba");
-                    sheditor.putString("email",email);
+                    sheditor.putString("email",email.getText().toString());
                     sheditor.putString("lastname","khadhraoui");
                     sheditor.putInt("id",1);
                     sheditor.commit();
@@ -189,6 +186,24 @@ List<User>users = new ArrayList<User>();
 
             }
         }
+
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public Boolean auth (final String email , final String password){
+
+            if (isNetworkAvailable()){
+                online();
+            }
+            else offline();
+
+
 
         return true;
     }

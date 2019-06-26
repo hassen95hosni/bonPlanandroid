@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 
 import com.example.bestoption.ADAPTERS.MessageAdapter;
 import com.example.bestoption.ADAPTERS.MyAdapter;
+import com.example.bestoption.design.customfonts.MyEditText;
 import com.example.bestoption.entity.Message;
 import com.example.bestoption.entity.Plans;
 import com.example.bestoption.interfaces.MessageInterface;
+import com.example.bestoption.interfaces.OnItemClickListener;
 import com.example.bestoption.interfaces.PlanInterface;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -38,12 +41,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Messenger extends AppCompatActivity {
+public class Messenger extends AppCompatActivity implements OnItemClickListener{
     private  static Retrofit retrofit = null;
     public static final String BASE_URL= "http://192.168.43.227:1330/";
-  //  EditText messenger;
+public List<Message>messages;
+    EditText messenger;
 
-/*
+
     public void send(View view){
         if (retrofit==null){
             retrofit = new Retrofit.Builder()
@@ -67,8 +71,8 @@ public class Messenger extends AppCompatActivity {
             }
         });
     }
-*/
- /*   private void sub (MqttAndroidClient client){
+
+    private void sub (MqttAndroidClient client){
         String topic = "message";
         int qos = 1;
         try {
@@ -91,25 +95,13 @@ public class Messenger extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-*/
 
- /*   private void pub(MqttAndroidClient client){
-        String topic = "foo/bar";
-        String payload = "the payload";
-        byte[] encodedPayload = new byte[0];
-        try {
-            encodedPayload = payload.getBytes("UTF-8");
-            MqttMessage message = new MqttMessage(encodedPayload);
-            client.publish(topic, message);
-        } catch (UnsupportedEncodingException | MqttException e) {
-            e.printStackTrace();
-        }
-    }
-    */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messenger);
+        getAlloffline();
        // messenger = findViewById(R.id.messenger);
      //   getAll();
       /*  String clientId = MqttClient.generateClientId();
@@ -145,7 +137,22 @@ public class Messenger extends AppCompatActivity {
         }
         */
     }
+public void addMessage(View view){
+    MyEditText newMessage=(com.example.bestoption.design.customfonts.MyEditText)findViewById(R.id.newMessage);
+    Message message = new Message();
+    message.setMessage(newMessage.getText().toString());
+    message.setMe(true);
+    final RecyclerView recyclerview ;
+    recyclerview = (RecyclerView) findViewById(R.id.messengerrecycler);
+    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+    recyclerview.setLayoutManager(layoutManager);
 
+
+    messages.add(message);
+    RecyclerView.Adapter madapter = new MessageAdapter(messages,this);
+    recyclerview.setAdapter(madapter);
+newMessage.setText("");
+    }
 
     private  int dpTopx(int dp){
         Resources r = getResources();
@@ -202,35 +209,44 @@ public class Messenger extends AppCompatActivity {
 
 
 
-/*
+
     private List<Message> getAlloffline(){
         final RecyclerView recyclerview ;
-        recyclerview = (RecyclerView) findViewById(R.id.messengerRecycler);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
-        recyclerview.addItemDecoration(new Messenger.GridSpacing(2, dpTopx(10) ,true));
+        recyclerview = (RecyclerView) findViewById(R.id.messengerrecycler);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerview.setLayoutManager(layoutManager);
-        final List<Message> messages = new ArrayList<Message>();
+        messages = new ArrayList<Message>();
         Message message = new Message();
         message.setId(1);
         message.setMessage("hello");
+        message.setMe(true);
         messages.add(message);
         message.setId(2);
         message.setMessage("hi");
+        message.setMe(false);
         messages.add(message);
         message.setId(3);
         message.setMessage("how are you ?");
+        message.setMe(true);
         messages.add(message);
         message.setId(4);
         message.setMessage("fine and you ?");
+        message.setMe(false);
         messages.add(message);
         message.setId(1);
         message.setMessage("me too");
+        message.setMe(true);
+
         messages.add(message);
-                    RecyclerView.Adapter madapter = new MessageAdapter(messages);
+                    RecyclerView.Adapter madapter = new MessageAdapter(messages,this);
                     recyclerview.setAdapter(madapter);
         return messages;
     }
-*/
+
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getApplicationContext(),"under construction",Toast.LENGTH_SHORT).show();
+    }
 
 
     public class GridSpacing extends RecyclerView.ItemDecoration{

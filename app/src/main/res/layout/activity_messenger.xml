@@ -21,6 +21,11 @@
             android:gravity="bottom"
             android:orientation="vertical">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/messengerrecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -187,6 +192,7 @@
 
 
                 <com.example.bestoption.design.customfonts.MyEditText
+                    android:id="@+id/newMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
@@ -201,6 +207,14 @@
                     android:layout_height="match_parent"
                     android:gravity="right">
 
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:onClick="addMessage"
+                        app:srcCompat="@android:drawable/ic_media_play" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

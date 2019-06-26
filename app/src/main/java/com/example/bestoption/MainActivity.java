@@ -28,19 +28,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this,signup.class));
     }
     public void skip (View v ){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ibytes)
-                .setContentTitle("notification")
-                .setContentText("text here")
-                .setChannelId("")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        Intent notificationIntent = new Intent(this,mostKnown.class);
-        PendingIntent contentInetnt = PendingIntent.getActivity(this,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentInetnt);
-        manager.notify(0,builder.build());
-
+        SharedPreferences.Editor sh = getSharedPreferences("login", MODE_PRIVATE).edit();
+        sh.putString("login","false");
+        sh.commit();
         startActivity(new Intent(MainActivity.this,mostKnown.class));
     }
 
@@ -57,16 +47,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void skip(){
-        SharedPreferences.Editor sheditor = getSharedPreferences("user",MODE_PRIVATE).edit();
-        Gson gson = new Gson();
-        User users = new User();
-        users.setEmail("");
-        String user = gson.toJson(users);
-        sheditor.putString("user",user);
-        sheditor.commit();
-        Toast.makeText(getApplicationContext(),user,Toast.LENGTH_SHORT).show();
-
-        startActivity(new Intent(MainActivity.this,mostKnown.class));
-    }
 }

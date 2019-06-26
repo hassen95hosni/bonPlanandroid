@@ -130,7 +130,7 @@ public String CHANNEL_ID="notification";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setContentTitle("notification")
-                .setContentText("text here")
+                .setContentText("des nouveaux plans")
           //      .setChannelId("yes")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
@@ -146,8 +146,9 @@ public String CHANNEL_ID="notification";
 
                  SharedPreferences.Editor sh = getSharedPreferences("login", MODE_PRIVATE).edit();
                 SharedPreferences shh = getSharedPreferences("login",MODE_PRIVATE);
-                if(shh.contains("login")){
+                if(!shh.contains("login")){
                     sh.putString("login","false");
+                    sh.commit();
                     startActivity(new Intent(Splash.this, MainActivity.class));
 
                 }else {

@@ -88,6 +88,7 @@ public class profilef extends Fragment implements View.OnClickListener {
         logout = (MyTextView) view.findViewById(R.id.logout);
         logout.setOnClickListener(this);
         ImageView addplan = (ImageView) view.findViewById(R.id.imageView2);
+
         addplan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

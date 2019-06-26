@@ -134,20 +134,19 @@
                 android:layout_height="1dp"
                 android:layout_marginBottom="10dp"
                 android:background="#ADCCE2"/>
+
             <com.example.bestoption.design.MyTextView
-                android:textSize="16dp"
                 android:id="@+id/not"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:textColorHint="#ADCCE2"
                 android:layout_marginLeft="22dp"
-                android:text="email déja utilisé"
 
-                android:textColor="#ADCCE2"
-                android:background="#FF0000"
+                android:layout_marginRight="35dp"
                 android:padding="16dp"
-                android:layout_marginRight="35dp"/>
+
+                android:textColor="#FF0000"
+                android:textColorHint="#ADCCE2"
+                android:textSize="16dp" />
 
             <View
                 android:layout_width="match_parent"
@@ -161,18 +160,18 @@
                 android:id="@+id/sin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/angle"
-                android:text="s'inscrire"
-                android:textSize="16dp"
-                android:textColor="#fff"
-                android:gravity="center"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:padding="16dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="28dp"
+                android:layout_marginLeft="40dp"
                 android:layout_marginTop="32dp"
-                />
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="28dp"
+                android:background="@drawable/angle"
+                android:gravity="center"
+                android:onClick="signup"
+                android:padding="16dp"
+                android:text="s'inscrire"
+                android:textColor="#fff"
+                android:textSize="16dp" />
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>
